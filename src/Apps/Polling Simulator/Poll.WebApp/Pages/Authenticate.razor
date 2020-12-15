@@ -1,0 +1,26 @@
+﻿@page "/"
+
+@inherits Poll.WebApp.BaseComponents.VoterBase
+
+    <div class="container">
+        <div class="login-wrap">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="#">
+                        <img src="images/icon/logo-1.jpg" alt="ESC">
+                    </a>
+                    <h3 class="pb-2 display-5">Electoral Supervisory Commission</h3>
+                </div>
+                <div class="login-form">
+                    <EditForm Model="@_VoterDto" OnValidSubmit="@AuthenticateVoter">
+                        <div class="form-group">
+                            <label>Enter your National Identity Card (NIC) to authenticate</label>
+                            <InputText class="au-input au-input--full" type="text" name="nic" @bind-Value="_VoterDto.Nic" placeholder="NIC" style="text-transform:uppercase"/>
+                        </div>
+                        <button class="au-btn au-btn--block au-btn--blue2" type="submit">Authenticate</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+

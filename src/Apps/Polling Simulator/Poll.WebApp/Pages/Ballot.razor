@@ -1,0 +1,113 @@
+﻿@page "/ballot/{id}"
+
+@inherits Poll.WebApp.BaseComponents.BallotBase
+
+<style>
+    .au-checkmark {
+        position: absolute;
+        top: -22px;
+        left: 0;
+        height: 45px;
+        width: 45px;
+        background-color: #fff;
+        border: 3px solid black;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+    }
+    .au-checkbox .au-checkmark:after {
+        left: 13px;
+        top: 4px;
+        width: 14px;
+        height: 25px;
+        border: solid #00ad5f;
+        border-width: 0 4px 4px 0;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    .main-content {
+        padding-top: 35px;
+        min-height: 100vh;
+    }
+    .au-alert--70per {
+        width: 55.5%;
+        margin: 0 auto;
+    }
+</style>
+<section class="alert-wrap p-t-70 p-b-70">
+    <div class="container">
+        <!-- ALERT-->
+        <h2 class="pb-2 display-5" style="text-align:center;">@ConstituencyDto.Candidates[0].ElectionName</h2>
+
+        <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert">
+            <i class="zmdi zmdi-check-circle"></i>
+            <span class="content" style="text-align:center;">Constituency No.@ConstituencyDto.Candidates[0].ConstituencyId @ConstituencyDto.Candidates[0].ConstituencyName</span>
+        </div>
+        <!-- END ALERT-->
+    </div>
+</section>
+
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive table-responsive-data2">
+                            <table class="table table-data2">
+                                <tbody>
+                                    @foreach (var candidate in ConstituencyDto.Candidates)
+                                    {
+                                        <tr class="tr-shadow">
+                                            <td>
+                                                @candidate.CandidateId
+                                            </td>
+                                            <td><b>@candidate.LastName @candidate.FirstName (@candidate.Aka)</b></td>
+                                            <td class="text-center">
+                                                @candidate.PartyName <br /> <p class="justify-content-center">@candidate.PartyAbbr </p>
+                                            </td>
+                                            @{ var imgSrc = string.Format("data:image/png;base64,{0}", candidate.PartyEmblem);}
+                                            <td><img src="images/@candidate.PartyEmblem" width="50" height="50" /></td>
+                                            <td>
+                                                <label class="au-checkbox">
+                                                    <input type="checkbox" disabled="@IsDisabled" @onchange="eventArgs => { CheckboxClicked(candidate.CandidateId, candidate.PartyId, candidate.FirstName, candidate.LastName, eventArgs.Value); }">
+                                                    <span class="au-checkmark"></span>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                      <tr class="spacer"></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END DATA TABLE -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@functions {
+    bool IsDisabled = false;
+    int castedVotes = 1;
+   // public List<Votes> votes { get; set; } = new List<Votes>();
+
+    void CheckboxClicked(long candidateId, long partyId, string candidateFirstName, string candidateLastName, object checkedValue)
+    {
+        castedVotes++;
+
+        if (castedVotes <= 3)
+        {
+            //votes.Add({ candidateId = candidateId });
+        }
+        else
+        {
+            IsDisabled = true;
+        }
+    }
+}

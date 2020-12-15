@@ -1,0 +1,137 @@
+﻿@model ESC.Admin.ViewModels.DashboardViewModel
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Dashboard</h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Population Count</span>
+                        <span class="info-box-number">
+                            125314
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-gradient-green elevation-1"><i class="fas fa-vote-yea"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Registered Electors</span>
+                        <span class="info-box-number">@Model.RegisteredVotersCount</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row justify-content-center" ">
+            <div class="col-md-11">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Voters' Demographics</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="chart-responsive">
+                                    <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                    <canvas id="pieChart" height="106" width="212" class="chartjs-render-monitor" style="display: block; width: 170px; height: 85px;"></canvas>
+                                </div>
+                                <!-- ./chart-responsive -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-4">
+                                <ul class="chart-legend clearfix">
+                                    <li><i class="far fa-circle text-danger"></i> 18 - 30</li>
+                                    <li><i class="far fa-circle text-success"></i> 31 - 45</li>
+                                    <li><i class="far fa-circle text-warning"></i> 46 - 60</li>
+                                    <li><i class="far fa-circle text-info"></i> 61 - 75</li>
+                                    <li><i class="far fa-circle text-primary"></i> 75 - 86</li>
+                                    <li><i class="far fa-circle text-secondary"></i> Above 86</li>
+                                </ul>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.footer -->
+                </div>
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="row justify-content-center">
+            <!-- Left col -->
+            <div class="col-md-11">
+                <div class="card">
+                    <div class="card-header border-transparent">
+                        <h3 class="card-title">The Constituencies in 2020</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th>Constituency No</th>
+                                        <th>Name of the Constituencies</th>
+                                        <th>Electoral Population</th>
+                                        <th>Ethnic Majority</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ 
+                                        foreach (var constituency in Model.Constituencies)
+                                        {
+                                            <tr>
+                                                <td>@constituency.ConstituencyId</td>
+                                                <td>@constituency.ConstituencyName</td>
+                                                <td><span class="badge badge-success">@constituency.ElectoralPopulation</span></td>
+                                                <td>
+                                                    <div class="sparkbar" data-color="#00a65a" data-height="20">@constituency.EthnicMajority</div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!--/. container-fluid -->
