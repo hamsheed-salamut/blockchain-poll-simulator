@@ -64,4 +64,4 @@ This the management portal to manage an electoral process, such as voter, party,
 This is the actual online polling station where the voters will be able to cast their votes.
 
 ## Database Migrations
-To seed the database prior running the application, execute the script `eco_schema_data.sql` on the sql database.
+To seed the database prior running the application, execute the script [eco_schema_data.sql](https://github.com/hamsheed-salamut/blockchain-poll-simulator/blob/main/eco_schema_data.sql) on the sql database.
